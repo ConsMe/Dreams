@@ -77,7 +77,7 @@ def record():
     snd_started = False
 
     r = array('h')
-    limit = 15 * 60
+    limit = 15 * 300
     timer = 0
     current_time = 0
 
@@ -96,8 +96,8 @@ def record():
         elif not silent and not snd_started:
             snd_started = True
             current_time = datetime.datetime.now().strftime('%Y_%m_%d__%H_%M_%S')
-        if snd_started and num_silent % 44 == 0:
-            print(num_silent)
+        # if snd_started and num_silent % 44 == 0:
+        #     print(num_silent)
         if snd_started and num_silent > 500:
             break
         timer += 1
@@ -121,7 +121,7 @@ def record_to_file():
     "Records from the microphone and outputs the resulting data to 'path'"
     sample_width, data, current_time = record()
     if sample_width == 0:
-        print('there were no sounds')
+        # print('there were no sounds')
         return
     data = pack('<' + ('h'*len(data)), *data)
 
@@ -129,6 +129,9 @@ def record_to_file():
     sound.export('files/' + current_time + '.mp3', format="mp3", bitrate="192k")
 
 if __name__ == '__main__':
-    for i in range(1):
-        print('file', i)
+    while True:
+        hour = datetime.datetime.now().hour
+        if hour == 7:
+          break
+        # print('file', i)
         record_to_file()
