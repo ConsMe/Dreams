@@ -132,6 +132,6 @@ if __name__ == '__main__':
     while True:
         hour = datetime.datetime.now().hour
         if hour == 7:
-          break
+            break
         # print('file', i)
         record_to_file()
