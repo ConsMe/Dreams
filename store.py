@@ -17,4 +17,5 @@ files = glob.glob('files/*.*')
 for path in files:
   file_name = os.path.basename(path)
   s3.upload_file(path, bucket, f'{folder}/{file_name}')
-print(files)
+  os.remove(path)
+# print(files)
