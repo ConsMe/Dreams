@@ -7,6 +7,7 @@ import wave
 import datetime
 from pydub import AudioSegment
 import os
+import time
 
 THRESHOLD = 3000
 CHUNK_SIZE = 1024
@@ -143,4 +144,4 @@ if __name__ == '__main__':
         # print('file', i)
         resp = record_to_file()
         if resp == 'nomic':
-            break
+            time.sleep(5)
