@@ -8,6 +8,12 @@ import datetime
 from pydub import AudioSegment
 import os
 import time
+import cv2
+
+cam = cv2.VideoCapture(0)
+ret, frame = cam.read()
+time.sleep(5)
+cam.release()
 
 THRESHOLD = 3000
 CHUNK_SIZE = 1024
