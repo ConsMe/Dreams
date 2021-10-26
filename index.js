@@ -1,12 +1,13 @@
 const express = require('express')
 const {spawn} = require('child_process');
+var bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
-// var bodyParser = require('body-parser');
 app.use(express.static('public'))
 
 app.use(express.json()); 
+app.use(bodyParser.json())
 
 app.post('/api', (req, res) => {
  

@@ -17,6 +17,9 @@
         fetch('/api', {
           method: 'post',
           body: JSON.stringify({ comm: document.getElementById('command').value }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
         .then((r) => document.getElementById('output').innerHTML += '<br>' + JSON.stringify(r));
       });
