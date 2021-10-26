@@ -11,12 +11,13 @@
   <button id="send">send</button>
   <div id="output"></div>
   <script>
-    document.getElementById('send').addEventListener('click', () => {
-      console.log('clicked');
-      fetch('/api', { method: 'post', body: document.getElementById('command').value })
-        .then((r) => document.getElementById('output').innerHTML += r);
-    });
-    const command
+    window.onload = () => {
+      document.getElementById('send').addEventListener('click', () => {
+        console.log('clicked');
+        fetch('/api', { method: 'post', body: document.getElementById('command').value })
+          .then((r) => document.getElementById('output').innerHTML += r);
+      });
+    }
   </script>
 </body>
 </html>
