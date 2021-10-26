@@ -6,6 +6,7 @@ import pyaudio
 import wave
 import datetime
 from pydub import AudioSegment
+import os
 
 THRESHOLD = 3000
 CHUNK_SIZE = 1024
@@ -131,7 +132,8 @@ def record_to_file():
     data = pack('<' + ('h'*len(data)), *data)
 
     sound = AudioSegment(data=data, sample_width=sample_width, frame_rate=RATE, channels=1)
-    sound.export('files/' + current_time + '.mp3', format="mp3", bitrate="192k")
+    path = os.path.dirname(os.path.realpath(__file__))
+    sound.export(f'{path}/files/{current_time}.mp3', format="mp3", bitrate="192k")
 
 if __name__ == '__main__':
     while True:
