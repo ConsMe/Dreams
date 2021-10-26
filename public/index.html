@@ -14,8 +14,11 @@
     window.onload = () => {
       document.getElementById('send').addEventListener('click', () => {
         console.log('clicked');
-        fetch('/api', { method: 'post', body: document.getElementById('command').value })
-          .then((r) => document.getElementById('output').innerHTML += r);
+        fetch('/api', {
+          method: 'post',
+          body: JSON.stringify({ comm: document.getElementById('command').value }),
+        })
+        .then((r) => document.getElementById('output').innerHTML += '<br>' + JSON.stringify(r));
       });
     }
   </script>

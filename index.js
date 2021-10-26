@@ -3,7 +3,10 @@ const {spawn} = require('child_process');
 const app = express()
 const port = 3000
 
+// var bodyParser = require('body-parser');
 app.use(express.static('public'))
+
+app.use(express.json()); 
 
 app.post('/api', (req, res) => {
  
@@ -12,7 +15,7 @@ app.post('/api', (req, res) => {
 //  const python = spawn('python3', ['record.py']);
 //  const python = spawn('lsusb');
  let python;
- const comm = req.body.split(' ');
+ const comm = req.body.comm.split(' ');
  if (comm.length === 1) {
    python = spawn(comm[0]);
  } else {
