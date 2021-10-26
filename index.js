@@ -5,7 +5,7 @@ const port = 3000
 
 app.use(express.static('public'))
 
-app.get('/api', (req, res) => {
+app.post('/api', (req, res) => {
  
  var dataToSend;
  // spawn new child process to call the python script
