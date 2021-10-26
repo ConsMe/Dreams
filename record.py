@@ -69,9 +69,12 @@ def record():
     it without getting chopped off.
     """
     p = pyaudio.PyAudio()
+    indexes = [i for i in range(p.get_device_count()) if 'USB' in p.get_device_info_by_index(i)['name']]
+    if len(indexes) == 0:
+      return -1, 0, 0
     stream = p.open(format=FORMAT, channels=1, rate=RATE,
         input=True, output=True,
-        frames_per_buffer=CHUNK_SIZE, input_device_index=1)
+        frames_per_buffer=CHUNK_SIZE, input_device_index=indexes[0])
 
     num_silent = 0
     snd_started = False
@@ -123,6 +126,8 @@ def record_to_file():
     if sample_width == 0:
         # print('there were no sounds')
         return
+    elif sample_width == -1:
+        return 'nomic'
     data = pack('<' + ('h'*len(data)), *data)
 
     sound = AudioSegment(data=data, sample_width=sample_width, frame_rate=RATE, channels=1)
@@ -134,4 +139,6 @@ if __name__ == '__main__':
         if hour == 7:
             break
         # print('file', i)
-        record_to_file()
+        resp = record_to_file()
+        if resp == 'nomic':
+            break
