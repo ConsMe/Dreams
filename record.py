@@ -72,7 +72,10 @@ def record():
     """
     p = pyaudio.PyAudio()
     indexes = [i for i in range(p.get_device_count()) if 'USB' in p.get_device_info_by_index(i)['name']]
+    print('devices count', p.get_device_count())
     if len(indexes) == 0:
+      for i in range(p.get_device_count()):
+          print(p.get_device_info_by_index(i)['name'])
       return -1, 0, 0
     stream = p.open(format=FORMAT, channels=1, rate=RATE,
         input=True, output=True,
