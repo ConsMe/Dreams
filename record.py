@@ -101,8 +101,8 @@ def record():
         elif not silent and not snd_started:
             snd_started = True
             current_time = datetime.datetime.now().strftime('%Y_%m_%d__%H_%M_%S')
-        # if snd_started and num_silent % 44 == 0:
-        #     print(num_silent)
+        if snd_started and num_silent % 15 == 0:
+            print(num_silent)
         if snd_started and num_silent > 500:
             break
         timer += 1
