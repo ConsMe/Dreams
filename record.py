@@ -147,4 +147,5 @@ if __name__ == '__main__':
         # print('file', i)
         resp = record_to_file()
         if resp == 'nomic':
-            time.sleep(5)
+            # time.sleep(5)
+            break
