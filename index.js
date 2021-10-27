@@ -47,6 +47,7 @@ let storeScript;
 function startRecord() {
   const recordScript = spawn('python3', ['record.py']);
   recordScript.on('close', () => {
+    console.log('record stopped', 'recordShouldBeRunning', recordShouldBeRunning);
     recordScript = undefined;
     if (recordShouldBeRunning) startRecord();
   });
@@ -68,7 +69,8 @@ function store() {
   }
 }
 
-new CronJob('18 12 * * *', () => {
+new CronJob('32 12 * * *', () => {
+  console.log('record started');
   recordShouldBeRunning = true;
   startRecord();
 });
