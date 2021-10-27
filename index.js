@@ -69,14 +69,14 @@ function store() {
   }
 }
 
-new CronJob('0 32 12 * * *', () => {
+new CronJob('0 30 0 * * *', () => {
   console.log('record started');
   recordShouldBeRunning = true;
   startRecord();
 }, null, true, 'Europe/Moscow');
-new CronJob('0 25 12 * * *', () => {
+new CronJob('0 30 7 * * *', () => {
   stopRecord();
 }, null, true, 'Europe/Moscow');
-new CronJob('0 */1 * * * *', () => {
+new CronJob('0 */5 * * * *', () => {
   store();
 }, null, true, 'Europe/Moscow');
