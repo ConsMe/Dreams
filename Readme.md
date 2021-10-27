@@ -10,3 +10,4 @@ sudo crontab -e
 
 ### User  
 crontab -e  
+@reboot cd /home/evo/Documents/Dreams && /usr/local/bin/forever start index.js >>/home/evo/cron.log 2>&1

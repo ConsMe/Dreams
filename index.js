@@ -1,6 +1,8 @@
 const express = require('express')
-const {spawn} = require('child_process');
+const { spawn } = require('child_process');
 var bodyParser = require('body-parser')
+var CronJob = require('cron').CronJob;
+var kill  = require('tree-kill');
 const app = express()
 const port = 3000
 
@@ -37,3 +39,42 @@ app.post('/api', (req, res) => {
 })
 app.listen(port, () => console.log(`Example app listening on port 
 ${port}!`))
+
+let recordShouldBeRunning = false;
+let recordScript;
+let storeScript;
+
+function startRecord() {
+  const recordScript = spawn('python3', ['record.py']);
+  recordScript.on('close', () => {
+    recordScript = undefined;
+    if (recordShouldBeRunning) startRecord();
+  });
+}
+function stopRecord() {
+  if (recordScript !== undefined) {
+    recordShouldBeRunning = false;
+    kill(recordScript.pid);
+    recordScript = undefined;
+  }
+}
+
+function store() {
+  if (storeScript === undefined) {
+    storeScript = spawn('python3', ['store.py']);
+    storeScript.on('close', () => {
+      storeScript = undefined;
+    });
+  }
+}
+
+new CronJob('18 12 * * *', () => {
+  recordShouldBeRunning = true;
+  startRecord();
+});
+new CronJob('25 12 * * *', () => {
+  stopRecord();
+});
+new CronJob('*/1 * * * *', () => {
+  store();
+});

@@ -14,7 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cron": "^1.8.2",
     "express": "^4.17.1",
-    "forever": "^4.0.1"
+    "forever": "^4.0.1",
+    "tree-kill": "^1.2.2"
   }
 }
