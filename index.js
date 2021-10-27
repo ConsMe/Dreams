@@ -45,7 +45,7 @@ let recordScript;
 let storeScript;
 
 function startRecord() {
-  const recordScript = spawn('python3', ['record.py']);
+  recordScript = spawn('python3', ['record.py']);
   recordScript.on('close', () => {
     console.log('record stopped', 'recordShouldBeRunning', recordShouldBeRunning);
     recordScript = undefined;
@@ -69,14 +69,14 @@ function store() {
   }
 }
 
-new CronJob('32 12 * * *', () => {
+new CronJob('0 32 12 * * *', () => {
   console.log('record started');
   recordShouldBeRunning = true;
   startRecord();
-});
-new CronJob('25 12 * * *', () => {
+}, null, true, 'Europe/Moscow');
+new CronJob('0 25 12 * * *', () => {
   stopRecord();
-});
-new CronJob('*/1 * * * *', () => {
+}, null, true, 'Europe/Moscow');
+new CronJob('0 */1 * * * *', () => {
   store();
-});
+}, null, true, 'Europe/Moscow');
