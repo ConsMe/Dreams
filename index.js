@@ -40,7 +40,7 @@ app.post('/api', (req, res) => {
  });
  
 })
-// app.listen(port, () => console.log(new Date(), `Example app listening on port 
+// app.listen(port, () => console.log(new Date().toString(), `Example app listening on port 
 // ${port}!`))
 
 let recordShouldBeRunning = false;
@@ -50,7 +50,7 @@ let storeScript;
 function startRecord() {
   recordScript = spawn('python3', ['record.py']);
   recordScript.on('close', () => {
-    console.log(new Date(), 'record stopped no usb', 'recordShouldBeRunning', recordShouldBeRunning);
+    console.log(new Date().toString(), 'record stopped no usb', 'recordShouldBeRunning', recordShouldBeRunning);
     recordScript = undefined;
     if (recordShouldBeRunning) startRecord();
   });
@@ -72,15 +72,15 @@ function store() {
   }
 }
 
-new CronJob('0 0 0 * * *', () => {
-  console.log(new Date(), 'record started');
+new CronJob('0 0 * * *', () => {
+  console.log(new Date().toString(), 'record started');
   recordShouldBeRunning = true;
   startRecord();
 }, null, true, TZ);
-new CronJob('0 30 7 * * *', () => {
-  console.log(new Date(), 'record stopped by cron');
+new CronJob('30 7 * * *', () => {
+  console.log(new Date().toString(), 'record stopped by cron');
   stopRecord();
 }, null, true, TZ);
-new CronJob('0 */5 * * * *', () => {
+new CronJob('*/5 * * * *', () => {
   store();
 }, null, true, TZ);
