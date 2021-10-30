@@ -6,6 +6,9 @@ var kill  = require('tree-kill');
 const app = express()
 const port = 3000
 
+const TZ = 'Europe/Moscow';
+process.env.TZ = TZ;
+
 app.use(express.static('public'))
 
 app.use(express.json()); 
@@ -37,8 +40,8 @@ app.post('/api', (req, res) => {
  });
  
 })
-app.listen(port, () => console.log(new Date(), `Example app listening on port 
-${port}!`))
+// app.listen(port, () => console.log(new Date(), `Example app listening on port 
+// ${port}!`))
 
 let recordShouldBeRunning = false;
 let recordScript;
@@ -73,11 +76,11 @@ new CronJob('0 0 0 * * *', () => {
   console.log(new Date(), 'record started');
   recordShouldBeRunning = true;
   startRecord();
-}, null, true, 'Europe/Moscow');
+}, null, true, TZ);
 new CronJob('0 30 7 * * *', () => {
   console.log(new Date(), 'record stopped by cron');
   stopRecord();
-}, null, true, 'Europe/Moscow');
+}, null, true, TZ);
 new CronJob('0 */5 * * * *', () => {
   store();
-}, null, true, 'Europe/Moscow');
+}, null, true, TZ);
