@@ -43,7 +43,7 @@ app.post('/api', (req, res) => {
 // app.listen(port, () => console.log(new Date().toString(), `Example app listening on port 
 // ${port}!`))
 
-let recordShouldBeRunning = false;
+let recordShouldBeRunning = true;
 let recordScript;
 let storeScript;
 
@@ -71,12 +71,12 @@ function store() {
     });
   }
 }
-
-new CronJob('0 0 * * *', () => {
-  console.log(new Date().toString(), 'record started');
-  recordShouldBeRunning = true;
-  startRecord();
-}, null, true, TZ);
+startRecord();
+// new CronJob('0 0 * * *', () => {
+//   console.log(new Date().toString(), 'record started');
+//   recordShouldBeRunning = true;
+//   startRecord();
+// }, null, true, TZ);
 new CronJob('30 7 * * *', () => {
   console.log(new Date().toString(), 'record stopped by cron');
   stopRecord();
