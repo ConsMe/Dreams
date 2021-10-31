@@ -13,6 +13,7 @@ THRESHOLD = 3000
 CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
 RATE = 16000
+stream = False
 
 def log(text):
   logname = datetime.datetime.now().strftime('%Y_%m_%d') + '.log'
@@ -77,18 +78,20 @@ def record():
     blank sound to make sure VLC et al can play 
     it without getting chopped off.
     """
-    p = pyaudio.PyAudio()
-    indexes = [i for i in range(p.get_device_count()) if 'USB' in p.get_device_info_by_index(i)['name']]
-    # log('devices count - ' + p.get_device_count())
-    if len(indexes) == 0:
-      # for i in range(p.get_device_count()):
-      #     print(p.get_device_info_by_index(i)['name'])
-      log('not found usb')
-      return -1, 0, 0
-    log('usb found')
-    stream = p.open(format=FORMAT, channels=1, rate=RATE,
-        input=True, output=True,
-        frames_per_buffer=CHUNK_SIZE, input_device_index=indexes[0])
+    global stream
+    if stream is False:
+      p = pyaudio.PyAudio()
+      indexes = [i for i in range(p.get_device_count()) if 'USB' in p.get_device_info_by_index(i)['name']]
+      # log('devices count - ' + p.get_device_count())
+      if len(indexes) == 0:
+        # for i in range(p.get_device_count()):
+        #     print(p.get_device_info_by_index(i)['name'])
+        log('not found usb')
+        return -1, 0, 0
+      log('usb found')
+      stream = p.open(format=FORMAT, channels=1, rate=RATE,
+          input=True, output=True,
+          frames_per_buffer=CHUNK_SIZE, input_device_index=indexes[0])
 
     num_silent = 0
     snd_started = False
