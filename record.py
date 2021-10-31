@@ -8,17 +8,19 @@ import datetime
 from pydub import AudioSegment
 import os
 import time
-# import cv2
-
-# cam = cv2.VideoCapture(0)
-# ret, frame = cam.read()
-# time.sleep(5)
-# cam.release()
 
 THRESHOLD = 3000
 CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
 RATE = 16000
+
+def log(text):
+  logname = datetime.datetime.now().strftime('%Y_%m_%d') + '.log'
+  logfile = open(logname, mode="w", encoding="utf-8")
+  timelog = datetime.datetime.now().strftime('%H:%M:%S')
+  logfile.write(f'\n[{timelog}]\n')
+  logfile.write(f'{text}\n')
+  logfile.close()
 
 def is_silent(snd_data):
     "Returns 'True' if below the 'silent' threshold"
@@ -78,11 +80,13 @@ def record():
     """
     p = pyaudio.PyAudio()
     indexes = [i for i in range(p.get_device_count()) if 'USB' in p.get_device_info_by_index(i)['name']]
-    print('devices count', p.get_device_count())
+    # log('devices count - ' + p.get_device_count())
     if len(indexes) == 0:
-      for i in range(p.get_device_count()):
-          print(p.get_device_info_by_index(i)['name'])
+      # for i in range(p.get_device_count()):
+      #     print(p.get_device_info_by_index(i)['name'])
+      log('not found usb')
       return -1, 0, 0
+    log('usb found')
     stream = p.open(format=FORMAT, channels=1, rate=RATE,
         input=True, output=True,
         frames_per_buffer=CHUNK_SIZE, input_device_index=indexes[0])
