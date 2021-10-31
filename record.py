@@ -107,10 +107,10 @@ def record():
 
         silent = is_silent(snd_data)
 
-        if silent and snd_started:
+        if snd_started:
             num_silent += 1
 #             print(num_silent)
-        elif not silent and not snd_started:
+        elif not silent:
             snd_started = True
             current_time = datetime.datetime.now().strftime('%Y_%m_%d__%H_%M_%S')
         if snd_started and num_silent % 15 == 0:
