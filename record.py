@@ -16,7 +16,7 @@ RATE = 16000
 stream = False
 
 def log(text):
-  logname = datetime.datetime.now().strftime('%Y_%m_%d') + '.log'
+  logname = 'logs/' + datetime.datetime.now().strftime('%Y_%m_%d') + '.log'
   logfile = open(logname, mode="a+", encoding="utf-8")
   timelog = datetime.datetime.now().strftime('%H:%M:%S')
   logfile.write(f'[{timelog}] {text}\n')
