@@ -18,8 +18,7 @@ def log(text):
   logname = datetime.datetime.now().strftime('%Y_%m_%d') + '.log'
   logfile = open(logname, mode="a+", encoding="utf-8")
   timelog = datetime.datetime.now().strftime('%H:%M:%S')
-  logfile.write(f'\n[{timelog}]\n')
-  logfile.write(f'{text}\n')
+  logfile.write(f'[{timelog}] {text}\n')
   logfile.close()
 
 def is_silent(snd_data):
@@ -157,5 +156,5 @@ if __name__ == '__main__':
         # print('file', i)
         resp = record_to_file()
         if resp == 'nomic':
-            # time.sleep(5)
+            time.sleep(1)
             break
