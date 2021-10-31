@@ -48,6 +48,11 @@ function startRecord() {
     recordScript = undefined;
     if (recordShouldBeRunning) startRecord();
   });
+  recordScript.on('error', (e) => {
+    console.log(new Date().toString(), 'record stopped by error', e);
+    recordScript = undefined;
+    if (recordShouldBeRunning) startRecord();
+  });
 }
 function stopRecord() {
   if (recordScript !== undefined) {
