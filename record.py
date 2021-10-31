@@ -128,8 +128,8 @@ def record():
         return 0, 0, 0
 
     sample_width = p.get_sample_size(FORMAT)
-    stream.stop_stream()
-    stream.close()
+    # stream.stop_stream()
+    # stream.close()
     p.terminate()
 
     r = normalize(r)
