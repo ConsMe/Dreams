@@ -16,7 +16,7 @@ RATE = 16000
 
 def log(text):
   logname = datetime.datetime.now().strftime('%Y_%m_%d') + '.log'
-  logfile = open(logname, mode="w", encoding="utf-8")
+  logfile = open(logname, mode="a+", encoding="utf-8")
   timelog = datetime.datetime.now().strftime('%H:%M:%S')
   logfile.write(f'\n[{timelog}]\n')
   logfile.write(f'{text}\n')
