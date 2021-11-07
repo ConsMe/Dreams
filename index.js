@@ -80,6 +80,6 @@ new CronJob('30 7 * * *', () => {
   console.log(new Date().toString(), 'record stopped by cron');
   stopRecord();
 }, null, true, TZ);
-new CronJob('*/5 * * * *', () => {
+new CronJob('30 7 * * *', () => {
   store();
 }, null, true, TZ);

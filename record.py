@@ -9,7 +9,7 @@ from pydub import AudioSegment
 import os
 import time
 
-THRESHOLD = 3000
+THRESHOLD = 2500
 CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
 RATE = 16000
