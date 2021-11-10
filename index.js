@@ -76,10 +76,10 @@ startRecord();
 //   recordShouldBeRunning = true;
 //   startRecord();
 // }, null, true, TZ);
-new CronJob('30 7 * * *', () => {
+new CronJob('30 07 * * *', () => {
   console.log(new Date().toString(), 'record stopped by cron');
   stopRecord();
 }, null, true, TZ);
-new CronJob('30 7 * * *', () => {
+new CronJob('30 07 * * *', () => {
   store();
 }, null, true, TZ);
